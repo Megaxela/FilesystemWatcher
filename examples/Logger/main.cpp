@@ -5,7 +5,7 @@
 #include <chrono>
 #include <thread>
 #include <fcntl.h>
-#include "ManualFilesystemWatcher.hpp"
+#include "include/ManualFilesystemWatcher.hpp"
 
 
 int main()
