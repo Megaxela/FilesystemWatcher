@@ -1,12 +1,12 @@
-//
-// Created by megaxela on 10/24/17.
-//
-
 #pragma once
 
 
 #include "BaseFilesystemWatcher.hpp"
 
+/**
+ * @brief Class, that describes
+ * filesystem watcher with manual path registration.
+ */
 class ManualFilesystemWatcher : public BaseFilesystemWatcher
 {
 public:

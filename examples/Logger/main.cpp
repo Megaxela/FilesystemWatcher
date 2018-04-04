@@ -5,15 +5,29 @@
 #include <chrono>
 #include <thread>
 #include <fcntl.h>
-#include "include/ManualFilesystemWatcher.hpp"
+#include "ManualFilesystemWatcher.hpp"
 
 
-int main()
+int main(int argc, char** argv)
 {
+    if (argc < 2)
+    {
+        std::cout << "Wrong usage. Example:" << std::endl;
+
+        if (argc > 0)
+        {
+            std::cout << argv[0] << " [path_to_watch]..." << std::endl;
+        }
+
+        return -1;
+    }
+
     ManualFilesystemWatcher watcher;
 
-    watcher.watchPath("/home/megaxela/TEST/Hello");
-    watcher.watchPath("/home/megaxela/TEST");
+    for (int i = 1; i < argc; ++i)
+    {
+        watcher.watchPath(argv[i]);
+    }
 
     ManualFilesystemWatcher::Event event;
 
@@ -40,9 +54,6 @@ int main()
             break;
         case AbstractFilesystemWatcher::Action::MovedTo:
             std::cout << "MovedTo";
-            break;
-        case AbstractFilesystemWatcher::Action::Renamed:
-            std::cout << "Renamed";
             break;
         }
 

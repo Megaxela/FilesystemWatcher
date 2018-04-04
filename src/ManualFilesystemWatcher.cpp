@@ -1,8 +1,4 @@
-//
-// Created by megaxela on 10/24/17.
-//
-
-#include "../include/ManualFilesystemWatcher.hpp"
+#include "ManualFilesystemWatcher.hpp"
 
 ManualFilesystemWatcher::ManualFilesystemWatcher()
 {

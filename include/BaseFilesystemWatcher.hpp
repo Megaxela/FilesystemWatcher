@@ -1,7 +1,3 @@
-//
-// Created by megaxela on 10/24/17.
-//
-
 #pragma once
 
 #ifdef OS_WINDOWS

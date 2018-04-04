@@ -1,12 +1,9 @@
-//
-// Created by megaxela on 10/24/17.
-//
-
 #pragma once
 
 
 #include <map>
 #include <queue>
+#include <utility>
 #include "AbstractFilesystemWatcher.hpp"
 
 /**
@@ -16,8 +13,6 @@
 class LinuxFilesystemWatcher : public AbstractFilesystemWatcher
 {
 public:
-
-    using PathType = std::string;
 
     using HandlerType = int;
 
@@ -34,11 +29,11 @@ public:
     ~LinuxFilesystemWatcher() override;
 
 protected:
-    void addToWatchable(const std::string& name) override;
+    void addToWatchable(const PathType& name) override;
 
     bool receiveEvent(Event& event) override;
 
-    void removeFromWatchable(const std::string& name) override;
+    void removeFromWatchable(const PathType& name) override;
 
 private:
     struct PathHandler
@@ -48,8 +43,8 @@ private:
             fileType(FileType::Unknown)
         {}
 
-        PathHandler(const PathType &path, FileType fileType) :
-            path(path),
+        PathHandler(PathType path, FileType fileType) :
+            path(std::move(path)),
             fileType(fileType)
         {}
 

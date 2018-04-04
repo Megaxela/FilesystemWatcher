@@ -1,5 +1,9 @@
-//
-// Created by megaxela on 4/2/18.
-//
-
 #pragma once
+
+#include <experimental/filesystem>
+
+
+namespace std::filesystem
+{
+    using namespace std::experimental::filesystem;
+}

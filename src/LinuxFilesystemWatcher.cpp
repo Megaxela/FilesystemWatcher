@@ -1,8 +1,4 @@
-//
-// Created by megaxela on 10/24/17.
-//
-
-#include "../include/LinuxFilesystemWatcher.hpp"
+#include "LinuxFilesystemWatcher.hpp"
 #include <sys/inotify.h>
 #include <unistd.h>
 #include <system_error>
@@ -179,8 +175,9 @@ bool LinuxFilesystemWatcher::receiveEvent(AbstractFilesystemWatcher::Event& outE
         }
         else if (event->len > 0)
         {
-            // todo: Add directory prefix.
-            newEvent.path = event->name;
+            newEvent.path = element->second.path;
+            newEvent.path += "/";
+            newEvent.path += event->name;
         }
         else
         {

@@ -1,10 +1,6 @@
-//
-// Created by megaxela on 10/24/17.
-//
-
 #pragma once
 
-#include<string>
+#include <string>
 #include <functional>
 
 /**
@@ -14,6 +10,8 @@
 class AbstractFilesystemWatcher
 {
 public:
+
+    using PathType = std::string;
 
     /**
      * @brief Enum class for
@@ -39,7 +37,6 @@ public:
         Deleted,   //< File was deleted.
         MovedFrom, //< File was moved from watchable directory.
         MovedTo,   //< File was moved to watchable directory.
-        Renamed    //< File was renamed.
     };
 
     /**
@@ -63,7 +60,7 @@ public:
          * @param action Action that happened
          * with file or directory.
          */
-        Event(const std::string& path,
+        Event(const PathType& path,
               FileType type,
               Action action) :
             path(path),
@@ -71,7 +68,7 @@ public:
             action(action)
         {}
 
-        std::string path;
+        PathType path;
         FileType type;
         Action action;
     };
@@ -86,19 +83,23 @@ public:
      */
     virtual ~AbstractFilesystemWatcher() = default;
 
+    // Disable copying
+    AbstractFilesystemWatcher(const AbstractFilesystemWatcher&) = delete;
+    AbstractFilesystemWatcher& operator=(const AbstractFilesystemWatcher&) = delete;
+
 protected:
 
     /**
      * @brief Method for adding path to watch for.
      * @param name Path to directory or file.
      */
-    virtual void addToWatchable(const std::string& name) = 0;
+    virtual void addToWatchable(const PathType& name) = 0;
 
     /**
      * @brief Method for removing path from watching list.
      * @param name
      */
-    virtual void removeFromWatchable(const std::string& name) = 0;
+    virtual void removeFromWatchable(const PathType& name) = 0;
 
     /**
      * @brief Method for receiving event of some filesystem
