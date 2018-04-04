@@ -3,7 +3,9 @@ It's C++11 based cross platform filesystem watcher.
 
 ## OS Covering
 :heavy_check_mark: Linux
+
 :x: Windows
+
 :x: MacOS
 
 ## Build
@@ -20,7 +22,7 @@ Steps to build it:
 1. Setup project: `cmake ..`
 1. You may build tests and examples:
     1. To build tests, you have to add `-DFSWATCHER_BUILD_TESTS=On` key (but tests are using C++17 standard)
-    1. To build examples, you have to add ``-DFSWATCHER_BUILD_EXAMPLES=On`.
+    1. To build examples, you have to add `-DFSWATCHER_BUILD_EXAMPLES=On`.
 1. Build library: `cmake --build` or `make`
 
 ## Usage example
