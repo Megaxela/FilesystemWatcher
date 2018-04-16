@@ -1,7 +1,7 @@
 # Cross Platform Filesystem Watcher
-It's C++11 based cross platform filesystem watcher.
+It's C++17 based cross platform filesystem watcher.
 
-## OS Covering
+## OS Coverage
 :heavy_check_mark: Linux
 
 :x: Windows
