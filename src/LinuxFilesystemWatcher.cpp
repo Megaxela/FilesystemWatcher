@@ -105,7 +105,6 @@ void LinuxFilesystemWatcher::addToWatchable(const std::string& name)
         );
     }
 
-
     m_pathsHandlers[watchHandle] = handler;
 }
 
@@ -155,6 +154,12 @@ bool LinuxFilesystemWatcher::receiveEvent(AbstractFilesystemWatcher::Event& outE
     while (i < length)
     {
         auto* event = (inotify_event*) &buffer[i];
+
+        if (event->mask & IN_IGNORED)
+        {
+            i += sizeof(inotify_event) + event->len;
+            continue;
+        }
 
         auto element = m_pathsHandlers.find(event->wd);
         if (element == m_pathsHandlers.end())
@@ -232,6 +237,15 @@ bool LinuxFilesystemWatcher::receiveEvent(AbstractFilesystemWatcher::Event& outE
 
 void LinuxFilesystemWatcher::removeFromWatchable(const std::string& name)
 {
+    if (m_iNotifyHandler < 0)
+    {
+        throw std::system_error(
+            0xDEADBEEF,
+            std::system_category(),
+            "Filesystem watcher was not initialized."
+        );
+    }
+
     std::string realPath;
     {
         char actualPath[PATH_MAX + 1];
@@ -252,6 +266,15 @@ void LinuxFilesystemWatcher::removeFromWatchable(const std::string& name)
     if (findResult == m_pathsHandlers.end())
     {
         return;
+    }
+
+    if (inotify_rm_watch(m_iNotifyHandler, findResult->first) < 0)
+    {
+        throw std::system_error(
+                errno,
+                std::system_category(),
+                strerror(errno)
+        );
     }
 
     m_pathsHandlers.erase(findResult->first);

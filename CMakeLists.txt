@@ -6,16 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 option(FSWATCHER_BUILD_TESTS    "Build tests"    Off)
 option(FSWATCHER_BUILD_EXAMPLES "Build examples" Off)
 
-
-set(CMAKE_CXX_FLAGS "-pedantic \
-                     -Wabi \
-                     -Wall \
-                     -Wextra \
-                     -Weffc++ \
-                     -Woverloaded-virtual \
-                     -Winit-self \
-                     -Wunreachable-code ")
-
 if(WIN32)
     add_definitions(-DOS_WINDOWS)
 elseif(UNIX)
